@@ -6,12 +6,13 @@ const Header = () => {
     <Box sx={{ textAlign: "center", py: 3, mb: 2 }}>
       <HomeIcon sx={{ fontSize: 48, color: "#a87a3f", mb: 1}}></HomeIcon>
       <Typography variant="h2" sx={{
-        fontWeight: 700, 
+        fontWeight: 800, 
             color: "#2b231a",
+            fontStyle: "italic"
       }}>
         Furniture Wishlist
       </Typography>
-      <Typography variant="subtitle1" color="text.secondary">
+      <Typography variant="subtitle1" sx={{fontStyle: "italic", color: "#a87a3f"}}>
         Furniture that I wish to add to my new apartment!
       </Typography>
       <Divider sx={{ borderColor: "#a87a3f", borderWidth: 2}}></Divider>

@@ -12,32 +12,42 @@ import {
   ListItemText,
   Box,
   Fade,
+  MenuItem,
+  Chip,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ChairIcon from "@mui/icons-material/Chair";
+import type { FurnitureType } from "./types/types";
 
 function App() {
-  const [list, setList] = useState<string[]>(
+  const [list, setList] = useState<FurnitureType[]>(
     localStorage.getItem("furniture-wishlist")
       ? JSON.parse(localStorage.getItem("furniture-wishlist")!)
       : [],
   );
 
   const [userInput, setUserInput] = useState("");
+  const [roomInput, setRoomInput] = useState("");
 
   const handleClick = () => {
-    setList([...list, userInput]);
+    const newItem: FurnitureType = {
+      id: Date.now().toString(),
+      name: userInput,
+      room: roomInput,
+    };
+    setList([...list, newItem]);
     setUserInput("");
+    setRoomInput("");
   };
 
   useEffect(() => {
     localStorage.setItem("furniture-wishlist", JSON.stringify(list));
   }, [list]);
 
-  const deleteItem = (removeItem: number) => {
-    const newList = list.filter((_, index) => index !== removeItem);
+  const deleteItem = (removeItem: string) => {
+    const newList = list.filter((item) => item.id !== removeItem);
     setList(newList);
   };
 
@@ -57,6 +67,18 @@ function App() {
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
             />
+            <TextField
+              select
+              label="Room"
+              value={roomInput}
+              onChange={(e) => setRoomInput(e.target.value)}
+            >
+              <MenuItem value="Living Room">Living Room</MenuItem>
+              <MenuItem value="Bedroom">Bedroom</MenuItem>
+              <MenuItem value="Kitchen">Kitchen</MenuItem>
+              <MenuItem value="Bathroom">Bathroom</MenuItem>/
+            </TextField>
+
             <Button
               variant="contained"
               onClick={handleClick}
@@ -78,10 +100,9 @@ function App() {
           </Stack>
         </Paper>
         <List>
-          {list.map((item, index) => (
-            <Fade in={true} key={index} timeout={700}>
+          {list.map((item) => (
+            <Fade in={true} key={item.id} timeout={700}>
               <ListItem
-                key={index}
                 sx={{
                   mb: 1,
                   bgcolor: "background.paper",
@@ -90,8 +111,13 @@ function App() {
                 }}
               >
                 <ChairIcon sx={{ color: "#a87a3f", mr: 2 }}></ChairIcon>
-                <ListItemText primary={item} />
-                <IconButton edge="end" onClick={() => deleteItem(index)}>
+                <ListItemText primary={item.name} secondary={item.room} />
+                <Chip
+                  label={item.room}
+                  size="small"
+                  sx={{ bgcolor: "#a87a3f", color: "white", mr: 1 }}
+                ></Chip>
+                <IconButton edge="end" onClick={() => deleteItem(item.id)}>
                   <ClearIcon />
                 </IconButton>
               </ListItem>
