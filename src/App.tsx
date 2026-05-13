@@ -15,9 +15,9 @@ import {
   MenuItem,
   Chip,
 } from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { Delete } from "@mui/icons-material";
 import ChairIcon from "@mui/icons-material/Chair";
 import type { FurnitureType } from "./types/types";
 
@@ -51,16 +51,11 @@ function App() {
     setList(newList);
   };
 
-  const removeItems = () => {
-    localStorage.removeItem("furniture-wishlist");
-    setList([]);
-  };
-
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <Container maxWidth="sm" sx={{ mt: 4, flex: "1" }}>
         <Header />
-        <Paper elevation={6} sx={{ p: 2, bgcolor: "#f5f5f5", borderRadius: 5 }}>
+        <Paper elevation={12} sx={{ p: 2, bgcolor: "#f5f5f5", borderRadius: "16px"  }}>
           <Stack direction="column" spacing={4}>
             <TextField
               label="Add furniture..."
@@ -88,15 +83,6 @@ function App() {
             >
               Add to wishlist
             </Button>
-            <Button
-              variant="contained"
-              onClick={removeItems}
-              sx={{
-                bgcolor: "#a87a3f",
-              }}
-            >
-              Remove all from wishlist
-            </Button>
           </Stack>
         </Paper>
         <List>
@@ -117,8 +103,8 @@ function App() {
                   size="small"
                   sx={{ bgcolor: "#a87a3f", color: "white", mr: 1 }}
                 ></Chip>
-                <IconButton edge="end" onClick={() => deleteItem(item.id)}>
-                  <ClearIcon />
+                <IconButton onClick={() => deleteItem(item.id)}>
+                  <Delete />
                 </IconButton>
               </ListItem>
             </Fade>
