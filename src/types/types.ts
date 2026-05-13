@@ -1,5 +1,5 @@
 export type FurnitureType = {
-  id: string,
-  name: string,
-  room: string
-}
+  id: string;
+  name: string;
+  room: string;
+};

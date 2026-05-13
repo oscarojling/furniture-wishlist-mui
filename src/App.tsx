@@ -20,6 +20,7 @@ import Footer from "./components/Footer";
 import { Delete } from "@mui/icons-material";
 import ChairIcon from "@mui/icons-material/Chair";
 import type { FurnitureType } from "./types/types";
+import AddIcon from "@mui/icons-material/Add";
 
 function App() {
   const [list, setList] = useState<FurnitureType[]>(
@@ -55,10 +56,13 @@ function App() {
     <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <Container maxWidth="sm" sx={{ mt: 4, flex: "1" }}>
         <Header />
-        <Paper elevation={12} sx={{ p: 2, bgcolor: "#f5f5f5", borderRadius: "16px"  }}>
+        <Paper
+          elevation={12}
+          sx={{ p: 2, bgcolor: "#f5f5f5", borderRadius: "16px" }}
+        >
           <Stack direction="column" spacing={4}>
             <TextField
-              label="Add furniture..."
+              label="Add furniture"
               value={userInput}
               onChange={(e) => setUserInput(e.target.value)}
             />
@@ -82,6 +86,7 @@ function App() {
               }}
             >
               Add to wishlist
+              <AddIcon />
             </Button>
           </Stack>
         </Paper>
